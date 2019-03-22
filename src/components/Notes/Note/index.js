@@ -17,6 +17,7 @@ export default ({ note, saveNote, match }) => {
             onChange={(e, { value }) => setText(value)}
             onBlur={() => saveNote({
               ...note,
+              label: text.length <= 15 ? text : `${text.substr(0, 15).trim()}...`,
               text
             })}
           />
