@@ -1,0 +1,21 @@
+.notes-list {
+  height: 100%;
+}
+
+.active {
+  color: rgb(45, 175, 175);
+}
+
+.item, .item label {
+  cursor: pointer;
+}
+
+.delete-button {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  height: 10px;
+  width: 10px;
+  box-shadow: none !important;
+  cursor: pointer;
+}
