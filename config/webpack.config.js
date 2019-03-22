@@ -36,12 +36,6 @@ module.exports = {
                 localIdentName: '[name]__[local]--[hash:base64:5].css',
                 sourcemaps: true
               }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourcemaps: true
-              }
             }
           ]
         })
