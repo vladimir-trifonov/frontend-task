@@ -1,7 +1,7 @@
 {
   "parser": "babel-eslint",
   "extends": "standard",
-  "plugins": [ "react"],
+  "plugins": ["react"],
   "parserOptions": {
     "ecmaVersion": 8,
     "sourceType": "module",
