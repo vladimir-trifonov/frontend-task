@@ -1,8 +1,17 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { Segment } from 'semantic-ui-react'
+import { NotesConsumer } from '../../contexts'
 
 export default () => {
   return (
-    <Segment>Notes List</Segment>
+    <NotesConsumer>
+      {({ notes }) => (
+        <Segment>
+          {notes && notes.map(({ label }) => (
+            <Segment>{label}</Segment>
+          ))}
+        </Segment>
+      )}
+    </NotesConsumer>
   )
 }

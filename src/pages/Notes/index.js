@@ -4,13 +4,13 @@ import { Notes } from '../../components'
 import styles from './Notes.module.css'
 
 export default class extends PureComponent {
-  render() {
+  render () {
     return (
-      <Grid verticalAlign='middle' textAlign='center' className={styles.main}>
+      <Grid verticalAlign='middle' textAlign='left' className={styles.main}>
         <Grid.Row>
           <Grid.Column>
             <Container className='text'>
-              <Notes/>
+              <Notes />
             </Container>
           </Grid.Column>
         </Grid.Row>

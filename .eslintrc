@@ -1,9 +1,7 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb",
-  "plugins": [
-    "react"
-  ],
+  "extends": "standard",
+  "plugins": [ "react"],
   "parserOptions": {
     "ecmaVersion": 8,
     "sourceType": "module",

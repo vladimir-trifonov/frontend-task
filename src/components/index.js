@@ -1,2 +1,4 @@
-export App from './App'
-export Notes from './Notes'
+import App from './App'
+import Notes from './Notes'
+
+export { App, Notes }
