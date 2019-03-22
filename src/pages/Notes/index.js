@@ -1,18 +1,17 @@
 import React, { PureComponent } from 'react'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Container } from 'semantic-ui-react'
 import { Notes } from '../../components'
 import styles from './Notes.module.css'
 
 export default class extends PureComponent {
   render() {
     return (
-      <Grid className={`${styles.main} ui middle aligned`}>
+      <Grid verticalAlign='middle' textAlign='center' className={styles.main}>
         <Grid.Row>
           <Grid.Column>
-            <main className='ui text container segment inverted'>
-              <h1>Notes</h1>
+            <Container className='text'>
               <Notes/>
-            </main>
+            </Container>
           </Grid.Column>
         </Grid.Row>
       </Grid>
