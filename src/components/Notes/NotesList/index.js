@@ -16,16 +16,18 @@ export default ({
         onClick={() => setCurrentNote(id)}
       >
         <label {...(id === currentNodeId && { className: styles.active })}>{label}</label>
-        <Button
-          className={styles['delete-button']}
-          basic
-          circular
-          icon='delete'
-          onClick={(e) => {
-            e.stopPropagation()
-            deleteNote(id)
-          }}
-        />
+        {notes.length > 1 &&
+          <Button
+            className={styles['delete-button']}
+            basic
+            circular
+            icon='delete'
+            onClick={(e) => {
+              e.stopPropagation()
+              deleteNote(id)
+            }}
+          />
+        }
       </Segment>
     ))}
   </Segment>

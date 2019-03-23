@@ -2,10 +2,7 @@
   height: 50vh;
 }
 
-.note form, .note form > textarea {
-  height: 100%;
-}
-
-.note form > textarea {
-  border: none !important;
+.note :global(.public-DraftEditor-content) {
+  height: calc(50vh - 2rem);
+  overflow-y: auto;
 }

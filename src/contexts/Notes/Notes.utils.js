@@ -10,6 +10,7 @@ export const deleteNote = (notes, id) => notes.filter((note) => note.id !== id)
 export const generateNewNote = (match) => ({
   label: getMatchString(match) ? match : 'New Note...',
   text: match || '',
+  html: match || '',
   id: uuidv4()
 })
 

@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Segment, Form, TextArea } from 'semantic-ui-react'
+import { Segment, Form } from 'semantic-ui-react'
+import { Editor, EditorState, ContentState, Modifier } from 'draft-js'
+import { stateToHTML } from 'draft-js-export-html'
+import { stateFromHTML } from 'draft-js-import-html'
 import styles from './Note.module.css'
 
 export default ({ note, saveNote }) => {
-  const [text, setText] = useState('')
+  const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
   useEffect(() => {
     if (note) {
-      setText(note.text)
+      setEditorState(EditorState.createWithContent(stateFromHTML(note.html)))
     }
   }, [note])
 
@@ -15,11 +18,25 @@ export default ({ note, saveNote }) => {
     ? text || 'New Note...'
     : `${text.substr(0, 15).trim()}...`
 
+  const handlePastedText = (text) => {
+    const pastedBlocks = ContentState.createFromText(text).blockMap
+    const newState = Modifier.replaceWithFragment(
+      editorState.getCurrentContent(),
+      editorState.getSelection(),
+      pastedBlocks
+    )
+    setEditorState(EditorState.push(editorState, newState, 'insert-fragment'))
+    return true
+  }
+
   const handleSaveNote = () => {
+    const editorstate = editorState.getCurrentContent()
+    const text = editorstate.getPlainText()
     saveNote({
       ...note,
       label: generateLabel(text),
-      text
+      text,
+      html: stateToHTML(editorstate)
     })
   }
 
@@ -27,10 +44,11 @@ export default ({ note, saveNote }) => {
     <Segment className={styles.note}>
       {note &&
         <Form>
-          <TextArea
-            value={text}
-            onChange={(e, { value }) => setText(value)}
+          <Editor
+            editorState={editorState}
+            onChange={setEditorState}
             onBlur={handleSaveNote}
+            handlePastedText={handlePastedText}
           />
         </Form>
       }

@@ -39,6 +39,7 @@ export default () => (
               </Grid.Column>
               <Grid.Column width='10'>
                 <Note
+                  match={match}
                   note={currentNote}
                   saveNote={saveNote}
                 />
