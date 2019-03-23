@@ -1,6 +1,5 @@
 import {
   getMatchedNotes,
-  generateNewNote,
   updateNote,
   addNote,
   getNote,
@@ -13,7 +12,7 @@ export const NotesReducer = (state, action) => {
 
   switch (action.type) {
     case 'ADD_NOTE':
-      const note = generateNewNote(state.match)
+      const note = action.payload
       matched = addNote({ ...note }, state.matched)
 
       return {
@@ -56,20 +55,9 @@ export const NotesReducer = (state, action) => {
 
     case 'SEARCH_NOTES':
       const currentNoteId = state.currentNote ? state.currentNote.id : null
-
-      // On empty search string display all the notes
-      if (!action.payload || !state.notes.length) {
-        matched = cloneNotes(state.notes)
-
-        return {
-          ...state,
-          match: action.payload,
-          matched,
-          currentNote: getNote(matched, currentNoteId, matched[0])
-        }
-      }
-
-      matched = getMatchedNotes(state.notes, action.payload)
+      matched = !action.payload || !state.notes.length
+        ? cloneNotes(state.notes) // On empty search string display all the notes
+        : getMatchedNotes(state.notes, action.payload)
 
       return {
         ...state,

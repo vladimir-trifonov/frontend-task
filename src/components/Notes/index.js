@@ -15,7 +15,7 @@ export default () => (
       currentNote,
       searchNotes,
       match,
-      matched
+      notes
     }) => (
       <Segment>
         <Grid>
@@ -27,11 +27,11 @@ export default () => (
               <Button basic onClick={addNote} icon='plus' />
             </Grid.Column>
           </Grid.Row>
-          {matched.length
+          {notes.length
             ? <Grid.Row columns={2}>
               <Grid.Column width='6'>
                 <NotesList
-                  notes={matched}
+                  notes={notes}
                   deleteNote={deleteNote}
                   setCurrentNote={setCurrentNote}
                   currentNote={currentNote}

@@ -4,7 +4,6 @@ const isNoteMatch = (match) => (note) => !getMatchString(match) || note.text.mat
 
 export const getMatchedNotes = (notes, match) => notes.filter(isNoteMatch(match))
 export const cloneNotes = (notes) => [...notes.map((note) => ({ ...note }))]
-
 export const addNote = (note, notes) => [note, ...notes]
 export const deleteNote = (notes, id) => notes.filter((note) => note.id !== id)
 
