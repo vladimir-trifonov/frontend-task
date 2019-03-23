@@ -3,10 +3,7 @@ import React, { useReducer } from 'react'
 import { NotesReducer } from './Notes.reducer'
 import { getNotesInitialState } from './Notes.state'
 import {
-  setNotes,
-  getNotes,
   addNote,
-  hasNotes,
   saveNote,
   deleteNote
 } from '../../services'

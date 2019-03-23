@@ -40,18 +40,16 @@ export default ({ note, saveNote }) => {
     })
   }
 
-  return (
-    <Segment className={styles.note}>
-      {note &&
-        <Form>
-          <Editor
-            editorState={editorState}
-            onChange={setEditorState}
-            onBlur={handleSaveNote}
-            handlePastedText={handlePastedText}
-          />
-        </Form>
-      }
-    </Segment>
-  )
+  return <Segment className={styles.note}>
+    {note &&
+      <Form>
+        <Editor
+          editorState={editorState}
+          onChange={setEditorState}
+          onBlur={handleSaveNote}
+          handlePastedText={handlePastedText}
+        />
+      </Form>
+    }
+  </Segment>
 }
