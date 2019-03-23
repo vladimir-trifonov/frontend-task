@@ -2,7 +2,7 @@ import {
   getMatchedNotes,
   updateNote,
   addNote,
-  getNote,
+  getCurrentNote,
   deleteNote,
   cloneNotes
 } from './Notes.utils'
@@ -19,13 +19,13 @@ export const NotesReducer = (state, action) => {
         ...state,
         notes: addNote({ ...note }, state.notes),
         matched,
-        currentNote: getNote(matched, note.id)
+        currentNote: getCurrentNote(matched, note.id)
       }
 
     case 'SET_CURRENT_NOTE':
       return {
         ...state,
-        currentNote: getNote(state.matched, action.payload)
+        currentNote: getCurrentNote(state.matched, action.payload)
       }
 
     case 'SAVE_NOTE':
@@ -38,7 +38,7 @@ export const NotesReducer = (state, action) => {
         matched,
         // If we just updated the current note and it no longer match the
         // current search string then set the first note to be the current note
-        currentNote: getNote(matched, updated.id, matched[0])
+        currentNote: getCurrentNote(matched, updated.id, state.currentNote)
       }
 
     case 'DELETE_NOTE':
@@ -65,7 +65,7 @@ export const NotesReducer = (state, action) => {
         matched,
         // If there is no current note being active or the current note is not part
         // of the filtered list, then set the first note to be the current note
-        currentNote: getNote(matched, currentNoteId, matched[0])
+        currentNote: getCurrentNote(matched, currentNoteId)
       }
 
     default:

@@ -15,10 +15,13 @@ export default ({ onSearch }) => {
     ref.current(q)
   }
 
+  const handleOnClick = () => handleSearch('')
+  const handleOnSearchChange = (e, { value }) => handleSearch(value)
+
   return <Search
     value={search}
-    {...search && { icon: <Icon name='delete' link onClick={() => handleSearch('')} /> }}
+    {...search && { icon: <Icon name='delete' link onClick={handleOnClick} /> }}
     open={false}
-    onSearchChange={(e, { value }) => handleSearch(value)}
+    onSearchChange={handleOnSearchChange}
   />
 }

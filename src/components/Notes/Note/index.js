@@ -1,31 +1,44 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Segment, Form } from 'semantic-ui-react'
-import { Editor, EditorState, ContentState, Modifier } from 'draft-js'
+import {
+  Editor,
+  EditorState,
+  ContentState,
+  Modifier
+} from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
 import { stateFromHTML } from 'draft-js-import-html'
+import { generateDecorator, generateLabel } from './Note.utils'
 import styles from './Note.module.css'
 
-export default ({ note, saveNote }) => {
+export default ({ note, match: search, saveNote }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
+  const ref = useRef()
 
+  const updateState = (curentState) => {
+    // Highlight the text by search criteria
+    curentState = EditorState.set(curentState, { decorator: generateDecorator(search || '') })
+
+    setEditorState(curentState)
+  }
+
+  // Show the text of the current note
   useEffect(() => {
     if (note) {
-      setEditorState(EditorState.createWithContent(stateFromHTML(note.html)))
+      let curentState = EditorState.createWithContent(stateFromHTML(note.html))
+      updateState(curentState)
     }
-  }, [note])
-
-  const generateLabel = (text) => text.length <= 15
-    ? text || 'New Note...'
-    : `${text.substr(0, 15).trim()}...`
+  }, [note, search])
 
   const handlePastedText = (text) => {
     const pastedBlocks = ContentState.createFromText(text).blockMap
-    const newState = Modifier.replaceWithFragment(
+    let newState = Modifier.replaceWithFragment(
       editorState.getCurrentContent(),
       editorState.getSelection(),
       pastedBlocks
     )
-    setEditorState(EditorState.push(editorState, newState, 'insert-fragment'))
+    newState = EditorState.push(editorState, newState, 'insert-fragment')
+    updateState(newState)
     return true
   }
 
@@ -44,8 +57,9 @@ export default ({ note, saveNote }) => {
     {note &&
       <Form>
         <Editor
+          ref={elem => { ref.current = elem }}
           editorState={editorState}
-          onChange={setEditorState}
+          onChange={updateState}
           onBlur={handleSaveNote}
           handlePastedText={handlePastedText}
         />
