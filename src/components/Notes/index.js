@@ -41,7 +41,6 @@ export default () => (
                 <Note
                   note={currentNote}
                   saveNote={saveNote}
-                  match={match}
                 />
               </Grid.Column>
             </Grid.Row>

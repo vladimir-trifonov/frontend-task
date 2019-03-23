@@ -1,5 +1,7 @@
 .notes-list {
-  height: 100%;
+  height: 50vh;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .active {
