@@ -20,6 +20,7 @@
   "homepage": "https://github.com/adevait/take-home-task#readme",
   "dependencies": {
     "jest": "24.5.0",
+    "lodash.debounce": "4.0.8",
     "react": "16.8.4",
     "react-dom": "16.8.4",
     "semantic-ui-react": "0.86.0"

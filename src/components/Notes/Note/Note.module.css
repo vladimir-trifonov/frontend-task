@@ -1,3 +1,7 @@
-.note, .note form, .note textarea {
+.note, .note form, .note form > textarea {
   height: 100%;
+}
+
+.note form > textarea {
+  border: none !important;
 }

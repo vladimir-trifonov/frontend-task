@@ -27,23 +27,30 @@ export default () => (
               <Button basic onClick={addNote} icon='plus' />
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row columns={2}>
-            <Grid.Column width='6'>
-              <NotesList
-                notes={matched}
-                deleteNote={deleteNote}
-                setCurrentNote={setCurrentNote}
-                currentNote={currentNote}
-              />
-            </Grid.Column>
-            <Grid.Column width='10'>
-              <Note
-                note={currentNote}
-                saveNote={saveNote}
-                match={match}
-              />
-            </Grid.Column>
-          </Grid.Row>
+          {matched.length
+            ? <Grid.Row columns={2}>
+              <Grid.Column width='6'>
+                <NotesList
+                  notes={matched}
+                  deleteNote={deleteNote}
+                  setCurrentNote={setCurrentNote}
+                  currentNote={currentNote}
+                />
+              </Grid.Column>
+              <Grid.Column width='10'>
+                <Note
+                  note={currentNote}
+                  saveNote={saveNote}
+                  match={match}
+                />
+              </Grid.Column>
+            </Grid.Row>
+            : <Grid.Row columns={1}>
+              <Grid.Column>
+                <Segment>{match ? 'No Results' : 'No Notes'}</Segment>
+              </Grid.Column>
+            </Grid.Row>
+          }
         </Grid>
       </Segment>
     )}

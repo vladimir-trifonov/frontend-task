@@ -1,11 +1,13 @@
-/* global uuidv4 */
+import { cloneNotes, generateNewNote } from './Notes.utils'
 
 export const getNotesInitialState = () => {
-  const id = uuidv4()
-  const notes = [{ label: 'New Note...', text: '', id }]
+  const note = generateNewNote()
+  const notes = [note]
+  const matched = cloneNotes(notes)
+
   return {
     notes,
-    matched: notes,
-    currentNote: notes[0]
+    matched,
+    currentNote: matched[0]
   }
 }
