@@ -8,60 +8,69 @@ import {
 } from './Notes.utils'
 
 export const NotesReducer = (state, action) => {
+  let notes
   let matched
 
   switch (action.type) {
     case 'ADD_NOTE':
-      const note = action.payload
-      matched = addNote({ ...note }, state.matched)
+      const note = action.note
+
+      notes = addNote({ ...note }, state.notes)
+      matched = !action.notMatch ? addNote({ ...note }, state.matched) : state.matched
 
       return {
         ...state,
-        notes: addNote({ ...note }, state.notes),
+        notes,
         matched,
+        count: notes.length,
         currentNote: getCurrentNote(matched, note.id)
       }
 
     case 'SET_CURRENT_NOTE':
       return {
         ...state,
-        currentNote: getCurrentNote(state.matched, action.payload)
+        currentNote: getCurrentNote(state.matched, action.note)
       }
 
     case 'SAVE_NOTE':
-      const updated = action.payload
+      const updated = action.note
+
+      notes = updateNote(state.notes, updated)
       matched = getMatchedNotes(updateNote(state.matched, updated), state.match)
 
       return {
         ...state,
-        notes: updateNote(state.notes, updated),
+        notes,
         matched,
+        count: notes.length,
         // If we just updated the current note and it no longer match the
         // current search string then set the first note to be the current note
         currentNote: getCurrentNote(matched, updated.id, state.currentNote)
       }
 
     case 'DELETE_NOTE':
-      matched = deleteNote(state.matched, action.payload)
+      notes = deleteNote(state.notes, action.note)
+      matched = deleteNote(state.matched, action.note)
 
       return {
         ...state,
-        notes: deleteNote(state.notes, action.payload),
+        notes,
         matched,
+        count: notes.length,
         // If we just deleted the current note,
         // set the first note to be the current note
-        ...(state.currentNote && state.currentNote.id === action.payload) && { currentNote: matched[0] }
+        ...(state.currentNote && state.currentNote.id === action.note) && { currentNote: matched[0] }
       }
 
     case 'SEARCH_NOTES':
       const currentNoteId = state.currentNote ? state.currentNote.id : null
-      matched = !action.payload || !state.notes.length
+      matched = !action.note || !state.notes.length
         ? cloneNotes(state.notes) // On empty search string display all the notes
-        : getMatchedNotes(state.notes, action.payload)
+        : getMatchedNotes(state.notes, action.note)
 
       return {
         ...state,
-        match: action.payload,
+        match: action.note,
         matched,
         // If there is no current note being active or the current note is not part
         // of the filtered list, then set the first note to be the current note

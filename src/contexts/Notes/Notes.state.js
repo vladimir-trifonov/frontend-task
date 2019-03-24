@@ -18,6 +18,7 @@ export const getNotesInitialState = () => {
   return {
     notes,
     matched,
+    count: notes.length,
     currentNote: matched[0]
   }
 }

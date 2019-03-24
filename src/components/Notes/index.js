@@ -7,7 +7,7 @@ import Note from './Note'
 
 export default () => <NotesConsumer>
   {({
-    addNote,
+    addNewNote,
     saveNote,
     deleteNote,
     setCurrentNote,
@@ -23,7 +23,7 @@ export default () => <NotesConsumer>
             <Search onSearch={searchNotes} />
           </Grid.Column>
           <Grid.Column textAlign='right' >
-            <Button basic onClick={addNote} icon='plus' />
+            <Button basic onClick={addNewNote} icon='plus' />
           </Grid.Column>
         </Grid.Row>
         {notes.length

@@ -23,15 +23,13 @@ export default ({
         onClick={handleSetCurrent(id)}
       >
         <label {...(id === currentNodeId && { className: styles.active })}>{label}</label>
-        {notes.length > 1 &&
-          <Button
-            className={styles['delete-button']}
-            basic
-            circular
-            icon='delete'
-            onClick={handleDelete(id)}
-          />
-        }
+        <Button
+          className={styles['delete-button']}
+          basic
+          circular
+          icon='delete'
+          onClick={handleDelete(id)}
+        />
       </Segment>
     ))}
   </Segment>

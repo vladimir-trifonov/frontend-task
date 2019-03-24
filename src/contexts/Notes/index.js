@@ -12,27 +12,36 @@ import { generateNewNote } from './Notes.utils'
 const NotesContext = React.createContext()
 
 const NotesProvider = ({ children }) => {
-  const [{ currentNote, match, matched }, dispatch] = useReducer(NotesReducer, getNotesInitialState())
+  const [{ currentNote, count, match, matched }, dispatch] = useReducer(NotesReducer, getNotesInitialState())
+
+  const addNewNote = ({ text, notMatch = false } = {}) => {
+    const newNote = generateNewNote(text)
+
+    addNote(newNote)
+    dispatch({ type: 'ADD_NOTE', note: newNote, notMatch })
+  }
 
   const value = {
     currentNote,
     match,
     notes: matched,
-    addNote: () => {
-      const note = generateNewNote(match)
-      addNote(note)
-      dispatch({ type: 'ADD_NOTE', payload: note })
-    },
+    addNewNote: () => addNewNote({ text: match }),
     saveNote: (note) => {
       saveNote(note)
-      dispatch({ type: 'SAVE_NOTE', payload: note })
+      dispatch({ type: 'SAVE_NOTE', note: note })
     },
     deleteNote: (noteId) => {
       deleteNote(noteId)
-      dispatch({ type: 'DELETE_NOTE', payload: noteId })
+      dispatch({ type: 'DELETE_NOTE', note: noteId })
+
+      if (count === 1 && !match) addNewNote()
     },
-    setCurrentNote: (noteId) => dispatch({ type: 'SET_CURRENT_NOTE', payload: noteId }),
-    searchNotes: (match) => dispatch({ type: 'SEARCH_NOTES', payload: match })
+    setCurrentNote: (noteId) => dispatch({ type: 'SET_CURRENT_NOTE', note: noteId }),
+    searchNotes: (match) => {
+      if (count === 0 && !match) addNewNote({ notMatch: true })
+
+      dispatch({ type: 'SEARCH_NOTES', note: match })
+    }
   }
 
   return (

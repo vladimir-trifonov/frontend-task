@@ -12,7 +12,7 @@ const findWithRegex = (regex, contentBlock, callback) => {
 }
 
 const SearchHighlight = (props) => {
-  return <span style={{ backgroundColor: 'yellow' }}>
+  return <span style={{ backgroundColor: 'rgb(45, 175, 175)', color: '#fff' }}>
     {props.children}
   </span>
 }
