@@ -8,6 +8,7 @@ module.exports = Object.assign({}, configuration, {
     main: configuration.entry.main
   },
   mode: 'development',
+  devtool: 'inline-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({

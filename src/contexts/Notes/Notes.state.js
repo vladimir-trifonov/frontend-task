@@ -5,11 +5,16 @@ import {
   hasNotes
 } from '../../services'
 
+// Initial state
 export const getNotesInitialState = () => {
   let notes
+
+  // Check if there are notes in the localStorage
   if (hasNotes()) {
+    // Get the notes from the localStorage
     notes = getNotes()
   } else {
+    // If not generate new empty note for starters
     notes = [generateNewNote()]
     setNotes(notes)
   }

@@ -7,6 +7,12 @@ const configuration = require('./webpack.config')
 
 module.exports = Object.assign({}, configuration, {
   mode: 'production',
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  },
+  devtool: false,
   plugins: [
     new CopyWebpackPlugin([{ from: 'public' }]),
     new webpack.DefinePlugin({

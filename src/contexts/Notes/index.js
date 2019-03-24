@@ -14,6 +14,7 @@ const NotesContext = React.createContext()
 const NotesProvider = ({ children }) => {
   const [{ currentNote, count, match, matched }, dispatch] = useReducer(NotesReducer, getNotesInitialState())
 
+  // Add an empty note
   const addNewNote = ({ text, notMatch = false } = {}) => {
     const newNote = generateNewNote(text)
 
@@ -34,10 +35,13 @@ const NotesProvider = ({ children }) => {
       deleteNote(noteId)
       dispatch({ type: 'DELETE_NOTE', note: noteId })
 
+      // Add new empty note if we just deleteds the last one
+      // except in the case if we are in search mode
       if (count === 1 && !match) addNewNote()
     },
     setCurrentNote: (noteId) => dispatch({ type: 'SET_CURRENT_NOTE', note: noteId }),
     searchNotes: (match) => {
+      // Add new empty note if we just deleteds the last one
       if (count === 0 && !match) addNewNote({ notMatch: true })
 
       dispatch({ type: 'SEARCH_NOTES', note: match })
