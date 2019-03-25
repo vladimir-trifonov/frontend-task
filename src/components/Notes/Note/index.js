@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Segment, Form } from 'semantic-ui-react'
+import { Segment } from 'semantic-ui-react'
 import {
   Editor,
   EditorState,
@@ -55,15 +55,13 @@ export default ({ note, match: search, saveNote }) => {
 
   return <Segment className={styles.note}>
     {note &&
-      <Form>
-        <Editor
-          ref={elem => { ref.current = elem }}
-          editorState={editorState}
-          onChange={updateState}
-          onBlur={handleSaveNote}
-          handlePastedText={handlePastedText}
-        />
-      </Form>
+      <Editor
+        ref={elem => { ref.current = elem }}
+        editorState={editorState}
+        onChange={updateState}
+        onBlur={handleSaveNote}
+        handlePastedText={handlePastedText}
+      />
     }
   </Segment>
 }

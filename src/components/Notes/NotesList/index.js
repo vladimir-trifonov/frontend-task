@@ -19,6 +19,7 @@ export default ({
     {notes && notes.map(({ label, id }) => (
       <Segment
         key={id}
+        data-testid='notes-list-note'
         className={styles.item}
         onClick={handleSetCurrent(id)}
       >

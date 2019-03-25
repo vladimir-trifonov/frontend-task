@@ -10,18 +10,20 @@ export default ({ onSearch }) => {
     ref.current = debouce(onSearch, 300)
   }, [onSearch])
 
-  const handleSearch = (q) => {
-    setSearch(q)
-    ref.current(q)
+  const handleDeleteClick = () => {
+    setSearch('')
+    onSearch('')
   }
 
-  const handleOnClick = () => handleSearch('')
-  const handleOnSearchChange = (e, { value }) => handleSearch(value)
+  const handleSearchChange = (e, { value }) => {
+    setSearch(value)
+    ref.current(value)
+  }
 
   return <Search
     value={search}
-    {...search && { icon: <Icon name='delete' link onClick={handleOnClick} /> }}
+    {...search && { icon: <Icon name='delete' link onClick={handleDeleteClick} /> }}
     open={false}
-    onSearchChange={handleOnSearchChange}
+    onSearchChange={handleSearchChange}
   />
 }

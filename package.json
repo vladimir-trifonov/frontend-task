@@ -12,7 +12,10 @@
   "jest": {
     "setupFilesAfterEnv": [
       "./src/setupTests.js"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   },
   "repository": {
     "type": "git",
