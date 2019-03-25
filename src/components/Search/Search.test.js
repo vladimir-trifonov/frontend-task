@@ -30,9 +30,9 @@ describe('Search component', () => {
       // manually enters the search text
       wrapper.find('input').simulate('change', { target: { value: 'abc' } })
 
-      expect(wrapper.find('input').props().value).toBe('abc')
+      expect(wrapper.find('input').props().value).toEqual('abc')
       expect(mockFn).toHaveBeenCalledTimes(1)
-      expect(mockFn.mock.calls[0][0]).toBe('abc')
+      expect(mockFn.mock.calls[0][0]).toEqual('abc')
     })
 
     test('should clear the search', () => {
@@ -43,10 +43,10 @@ describe('Search component', () => {
       wrapper.find('input').simulate('change', { target: { value: 'abc' } })
       wrapper.find('.delete.link').simulate('click')
 
-      expect(wrapper.find('input').props().value).toBe('')
+      expect(wrapper.find('input').props().value).toEqual('')
       expect(mockFn).toHaveBeenCalledTimes(2)
-      expect(mockFn.mock.calls[0][0]).toBe('abc')
-      expect(mockFn.mock.calls[1][0]).toBe('')
+      expect(mockFn.mock.calls[0][0]).toEqual('abc')
+      expect(mockFn.mock.calls[1][0]).toEqual('')
     })
   })
 })
