@@ -3,7 +3,7 @@
 ## Starting the Project
 - Install the dependencies using `yarn`
 - Start the project using `yarn start`
-- Go to [home](http://localhost:8080) to get started
+- Go to the [app](http://localhost:8080) to get started
 
 #### `yarn start`
 
